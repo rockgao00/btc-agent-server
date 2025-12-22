@@ -1,0 +1,12 @@
+[Unit]
+Description=scheck
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+ExecStart=/data/scheck/scheck.sh
+
+[Install]
+WantedBy=default.target

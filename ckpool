@@ -1,0 +1,11 @@
+/data/ckpool_3333/logs/ckproxy.log {
+  su root root
+  rotate 31
+  daily
+  copytruncate
+  compress
+  missingok
+  ifempty
+  dateext
+  create
+}

@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /data/minerscan && ./scan > /data/minerscan/scan.log && cat /data/minerscan/scan.log | grep -a 192.168. | grep -a success | awk '{print $1,$2,"position",$4,$5,$6,$7,$8}' | sort -u | sort -t "." -k1n,1 -k2n,2 -k3n,3 -k4n,4 | awk '!a[$1]++{print}' | tr "[:upper:]" "[:lower:]" | sed 's/antminer s19 xp/s19xp/' | sed 's/s19 xp/s19xp/' | sed 's/antminer s19j pro/s19jpro/' | sed 's/s19j pro/s19jpro/' | sed 's/antminer bhb/bhb/' | sed 's/whatsminer m/m/' | sed 's/whatsminer v/v/' | sed 's/SM (bitmicro)/bitmicro/' | awk '{print $1,$2,$3,$4,$5}' > /data/minerscan/tmp.log
+mv /data/minerscan/tmp.log /data/minerscan/miner.log
+cat /data/minerscan/scan.log | grep -a -B 8 chain_rate4 > /data/minerscan/run.log
+cat /data/minerscan/scan.log | grep -a -B 8 Slot >> /data/minerscan/run.log
+cat /data/minerscan/run.log | grep -a -v makeResult  | grep -a -v Host | grep -a -v Step | grep -a -v success | grep -a -v command | grep -a -v "\--" | sed 's/IP:/{"/' | sed 's/{"STATUS//' | sed 's/[\t ]\+//g' | sed 's/\x00//g' | sed -n 'H;${x;s/\n//g;p;}' | sed 's/{"192.168./\n\n{"192.168./g' | sed 's/\\//g' | jq . | grep -E '192.168|fan|chain_rate1|chain_rate2|chain_rate3|Slot|MHS5s' | sed 's/\[//g' > /data/minerscan/runtmp.txt
+mv /data/minerscan/runtmp.txt /data/minerscan/run.txt

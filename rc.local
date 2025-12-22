@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sudo systemctl restart firewalld.service
+sudo rm -rf /etc/kea/dhcp4.leases
+sudo systemctl restart kea-dhcp4-server.service
+sudo systemctl restart ntp.service
+

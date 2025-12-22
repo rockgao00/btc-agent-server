@@ -1,0 +1,12 @@
+[Unit]
+Description=ckpool
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+ExecStart=/data/ckpool_3333/ckpool -c /data/ckpool_3333/ckproxy.conf -k -p -l 7 -s /data/ckpool_3333/sock -r localhost
+
+[Install]
+WantedBy=default.target
